@@ -58,8 +58,30 @@
       // 🧠 Implement a `getAllReversed` method which returns the ints in reverse order
       // ❗ WARNING: except for `getAllReversed`, methods must respect the order of the integers
       // ❗ WARNING: note that none of the methods actually mutate the `ints` property
-
+      constructor(...ints) {
+        this.ints = ints
+      }
+      getAll = () => this.ints
+      getEvens = () => this.ints.filter(numbers => numbers % 2 === 0)
+      getNegatives = () => this.ints.filter(numbers => numbers < 0)
+      getAllSquared = () => this.ints.map(numbers => numbers ** 2) 
+      pop = () => this.ints.pop()
+      push(int) {
+       let copyArr = this.ints
+       copyArr.push(int)
+       return this.ints = copyArr
+       }
+      getEveryNth(n) { 
+        let array = []
+        for(let i = 0; i < this.ints.length; i += n) {
+          array.push(this.ints[i])
+        }
+        return array
+        }
+      getAllReversed = () => this.ints.reverse([])
+      
     }
+    
 
     // 👉 CHALLENGE 2 NerfGun
     class NerfGun {
@@ -76,7 +98,37 @@
       //      * When engaging the safety, return "Safety enabled!"
       //      * When disengaging the safety, return "Safety disabled!"
       // 🌟 HINT: instances need to keep track of their maximum capacity as well as their current capacity
-
+        
+      constructor(capacity){
+        this.capacity = capacity
+        this.loaded = capacity
+        this.safetyOn = true
+      }
+      shoot() {
+        if (this.capacity > 0 && !this.safetyOn) {
+          this.capacity--
+          return `Bang!`
+        }
+        return `Click!`
+      }
+      reload(number) {
+        if (number <= 0 || typeof number !== 'number') {
+          return `Error reloading!`
+        }
+        if ((number + this.capacity) > this.loaded) {
+         this.capacity = this.loaded
+        } else {
+        this.capacity += number}
+        return `${this.capacity} projectiles left!`
+         }
+      toggleSafety() {
+        this.safetyOn = !this.safetyOn
+        if (this.safetyOn) {
+          return `Safety enabled!`
+        } 
+        return `Safety disabled!`
+      }
+      
     }
 
     // 👉 CHALLENGE 3 EBook
@@ -95,9 +147,19 @@
       //    ebook.next() // returns null
       // 🌟 HINT: remember about the `slice` method of arrays
       // ❗ Feel free to implement `back`, although this is not required nor graded
-
-    }
-
+     constructor (book, page) {
+      this.book = book 
+      this.page = page  
+     }
+     next () {
+      let copyArray = this.book
+      let result = []
+      for (let i in copyArray) {
+         return copyArray.slice(0, this.page)
+      } 
+    
+     }
+}
     // 👉 CHALLENGE 4 AntFarm
     class AntFarm {
       // 🧠 Constructor takes **any** number of arguments, which are strings: the names of your ants
@@ -130,9 +192,16 @@
       //      console.log(list) // prints ["a"]
       // 👉 HINT: if you are not feeling confident with map and filter, solve the problem with for loops,
       //      and with the piece of mind of all tests passing, refactor to use map/filter
-
-    }
-
+        constructor (...name) {
+          this.name = name
+         this.health = 100
+          } 
+         
+       
+        
+      }
+    
+       
     // 🧪 TESTS, do not make any changes below this line ===================
     // 🧪 TESTS, do not make any changes below this line ===================
     // 🧪 TESTS, do not make any changes below this line ===================
