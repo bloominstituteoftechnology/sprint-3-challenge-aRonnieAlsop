@@ -147,19 +147,28 @@
       //    ebook.next() // returns null
       // 🌟 HINT: remember about the `slice` method of arrays
       // ❗ Feel free to implement `back`, although this is not required nor graded
-     constructor (book, page) {
-      this.book = book 
-      this.page = page  
-     }
-     next () {
-      let copyArray = this.book
-      let result = []
-      for (let i in copyArray) {
-         return copyArray.slice(0, this.page)
-      } 
-    
-     }
-}
+      constructor(book, page) {
+        this.book = book
+        this.page = page
+        this.currentPage = this.page
+        this.start = 0
+      }
+      next() {
+        let begin = this.start * this.page
+        let end = this.currentPage
+        let result = this.book.slice(begin, end)
+        this.currentPage += this.page
+        this.start++
+        if (result.length <= 0) {
+          return null
+        }
+        return result
+        }
+    }
+
+   
+   
+
     // 👉 CHALLENGE 4 AntFarm
     class AntFarm {
       // 🧠 Constructor takes **any** number of arguments, which are strings: the names of your ants
@@ -192,16 +201,54 @@
       //      console.log(list) // prints ["a"]
       // 👉 HINT: if you are not feeling confident with map and filter, solve the problem with for loops,
       //      and with the piece of mind of all tests passing, refactor to use map/filter
-        constructor (...name) {
-          this.name = name
-         this.health = 100
-          } 
-         
-       
-        
+    constructor (...names) {
+      this.ants = []
+      for (let i = 0; i < names.length; i++) {
+      this.ants.push({name: names[i],  health: 100})
       }
+    }
+    work() {
+      let copyArr = this.ants
+      this.ants = []
+      for (let i = 0; i < copyArr.length; i++) {
+        let j = copyArr[i].health
+        let k = copyArr[i].name
+        j -= 20
+       if (j > 0) {
+        this.ants.push({name: k , health: j})
+       } 
+      }
+      let amount = copyArr.length
+      if (amount > 0) {
+      return `${amount} ants starting work!`
+     } else {
+      return `No ants here. Did you work them to death?`
+     }
+      }
+      feed (nam) {
+      let arr = this.ants
+      this.ants = []
+      let result 
+      for (let i = 0; i < arr.length; i++){
+        nam === arr[i].name ? arr[i].health += 15 : arr[i].health
+       this.ants.push({name: arr[i].name, health: arr[i].health})
+        arr[i].name === nam? result = `Yum!` : null
+        
+      } 
+      if (result !== `Yum!`) {
+          return `${nam} not found!`
+        } 
+     return result
     
+     }
+    
+          
+        }
        
+    
+ 
+
+
     // 🧪 TESTS, do not make any changes below this line ===================
     // 🧪 TESTS, do not make any changes below this line ===================
     // 🧪 TESTS, do not make any changes below this line ===================
